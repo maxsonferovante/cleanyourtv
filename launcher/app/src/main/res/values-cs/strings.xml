@@ -94,4 +94,20 @@
         <item quantity="other">%1$d aplikací</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">Hotovo</string>
+    <string name="home_panel">Panel domovské obrazovky</string>
+    <string name="home_panel_on">Panel zapnutý</string>
+    <string name="home_panel_off">Panel vypnutý</string>
+    <string name="home_weather_heading">Počasí</string>
+    <string name="home_capacity_heading">Kapacita</string>
+    <string name="home_weather_configure">Otevřete Weather a vyberte město</string>
+    <string name="home_weather_details">Pocitově %1$d° · Vlhkost %2$d%% · Vítr %3$d km/h</string>
+    <string name="home_sky_clear_day">Jasno</string>
+    <string name="home_sky_clear_night">Jasno</string>
+    <string name="home_sky_partly_cloudy">Částečně zataženo</string>
+    <string name="home_sky_cloudy">Zataženo</string>
+    <string name="home_sky_fog">Mlha</string>
+    <string name="home_sky_rain">Déšť</string>
+    <string name="home_sky_snow">Sníh</string>
+    <string name="home_sky_storm">Bouřka</string>
 </resources>

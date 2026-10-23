@@ -106,4 +106,20 @@
     <string name="race_live">%1$s · en directo</string>
     <string name="race_finished">Bandera a cuadros</string>
     <string name="last_opened">Abierta por última vez %1$s</string>
+    <string name="done">Listo</string>
+    <string name="home_panel">Panel de inicio</string>
+    <string name="home_panel_on">Panel activado</string>
+    <string name="home_panel_off">Panel desactivado</string>
+    <string name="home_weather_heading">Tiempo</string>
+    <string name="home_capacity_heading">Capacidad</string>
+    <string name="home_weather_configure">Abre Weather y elige una ciudad</string>
+    <string name="home_weather_details">Sensación %1$d° · Humedad %2$d%% · Viento %3$d km/h</string>
+    <string name="home_sky_clear_day">Despejado</string>
+    <string name="home_sky_clear_night">Despejado</string>
+    <string name="home_sky_partly_cloudy">Parcialmente nublado</string>
+    <string name="home_sky_cloudy">Nublado</string>
+    <string name="home_sky_fog">Niebla</string>
+    <string name="home_sky_rain">Lluvia</string>
+    <string name="home_sky_snow">Nieve</string>
+    <string name="home_sky_storm">Tormenta</string>
 </resources>

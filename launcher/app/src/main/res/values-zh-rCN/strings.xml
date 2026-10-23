@@ -63,4 +63,20 @@
         <item quantity="other">%1$d 个应用</item>
     </plurals>
     <string name="greeting_with_name">%1$s，%2$s</string>
+    <string name="done">完成</string>
+    <string name="home_panel">主屏幕面板</string>
+    <string name="home_panel_on">面板已开启</string>
+    <string name="home_panel_off">面板已关闭</string>
+    <string name="home_weather_heading">天气</string>
+    <string name="home_capacity_heading">容量</string>
+    <string name="home_weather_configure">打开 Weather 并选择城市</string>
+    <string name="home_weather_details">体感 %1$d° · 湿度 %2$d%% · 风速 %3$d 公里/小时</string>
+    <string name="home_sky_clear_day">晴</string>
+    <string name="home_sky_clear_night">晴</string>
+    <string name="home_sky_partly_cloudy">局部多云</string>
+    <string name="home_sky_cloudy">多云</string>
+    <string name="home_sky_fog">雾</string>
+    <string name="home_sky_rain">雨</string>
+    <string name="home_sky_snow">雪</string>
+    <string name="home_sky_storm">雷暴</string>
 </resources>

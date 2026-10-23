@@ -31,6 +31,6 @@ android {
 }
 
 dependencies {
-    // Test only (never in the APK): plain JVM tests for the code and AQI tables, src/test.
+    // Test only (never in the APK): plain JVM tests for weather data and Home IPC behavior, src/test.
     testImplementation 'junit:junit:4.13.2'
 }

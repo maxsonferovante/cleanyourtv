@@ -70,4 +70,20 @@
         <item quantity="other">%1$d aplikacija</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">Gotovo</string>
+    <string name="home_panel">Panel početnog ekrana</string>
+    <string name="home_panel_on">Panel uključen</string>
+    <string name="home_panel_off">Panel isključen</string>
+    <string name="home_weather_heading">Vreme</string>
+    <string name="home_capacity_heading">Kapacitet</string>
+    <string name="home_weather_configure">Otvorite Weather i izaberite grad</string>
+    <string name="home_weather_details">Osećaj %1$d° · Vlažnost %2$d%% · Vetar %3$d km/h</string>
+    <string name="home_sky_clear_day">Vedro</string>
+    <string name="home_sky_clear_night">Vedro</string>
+    <string name="home_sky_partly_cloudy">Delimično oblačno</string>
+    <string name="home_sky_cloudy">Oblačno</string>
+    <string name="home_sky_fog">Magla</string>
+    <string name="home_sky_rain">Kiša</string>
+    <string name="home_sky_snow">Sneg</string>
+    <string name="home_sky_storm">Grmljavina</string>
 </resources>

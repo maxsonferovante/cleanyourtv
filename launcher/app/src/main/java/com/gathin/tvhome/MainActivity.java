@@ -3,12 +3,14 @@ package com.gathin.tvhome;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -44,7 +46,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.SpannableString;
@@ -97,6 +103,14 @@ import java.util.Set;
 public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private static final int LAUNCHER_SETTINGS_REQUEST = 42;
+    private static final String WEATHER_PACKAGE = "io.github.sumyabazar1.weather";
+    private static final String WEATHER_SERVICE = WEATHER_PACKAGE + ".HomePanelService";
+    private static final String WEATHER_ACTION = WEATHER_PACKAGE + ".HOME_PANEL";
+    private static final String WEATHER_PANEL_PREFS = "home_panels";
+    private static final String WEATHER_PANEL_KEY = "weather";
+    private static final long WEATHER_PANEL_REFRESH_MS = 5 * 60_000L;
+    private static final int WEATHER_REQUEST = 1, WEATHER_RESPONSE = 2;
+    private static final int WEATHER_NO_CITY = 1, WEATHER_OFFLINE = 2, WEATHER_READY = 3;
     /** Sent by QuickSettingsActivity: open Launcher settings from here so Home rebuilds when they close. */
     static final String ACTION_LAUNCHER_SETTINGS = "com.gathin.tvhome.action.LAUNCHER_SETTINGS";
     /** The system input switcher, forwarded here by InputsRequestActivity while handle_view_inputs is on. */
@@ -180,6 +194,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean pillsShown;
     private TextView shamsiDate;
     private TextView stats;
+    private View homePanel, homeWeather;
+    private TextView homeWeatherCurrent, homeWeatherDetails, homeCapacityText;
+    private boolean homePanelEnabled;
+    private boolean homePanelBinding;
+    private Messenger weatherEndpoint;
     private List<RaceWeekend.Race> raceCalendar;
     private View racePanel;
     private TextView raceKicker, raceHeadline, raceSessions;
@@ -235,6 +254,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean tilesReady;
     private boolean settingsRecreationPending;
     private Dialog cardPrompt;
+    private Dialog cardChoicesDialog;
     /** Set when a decision could not be saved: no more prompts until the next resume, instead of asking in a loop. */
     private boolean promptsPaused;
     /** Between onStop and onStart: Home was fully covered by an app, not just by the translucent quick panel. */
@@ -277,6 +297,27 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private RecyclerView.OnScrollListener pendingFocusScroll;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Messenger weatherPanelClient = new Messenger(new Handler(Looper.getMainLooper(), this::onWeatherPanelMessage));
+    private final Runnable refreshWeatherPanel = this::requestWeatherPanel;
+    private final ServiceConnection weatherPanelConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            weatherEndpoint = new Messenger(binder);
+            homePanelBinding = true;
+            homePanel.setVisibility(View.VISIBLE);
+            syncStatsVisibility();
+            homePanel.post(MainActivity.this::refreshHeroPositionForPanel);
+            requestWeatherPanel();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            weatherEndpoint = null;
+            homePanel.setVisibility(View.GONE);
+            syncStatsVisibility();
+            homePanel.post(MainActivity.this::refreshHeroPositionForPanel);
+        }
+    };
     /** Refreshes the network pill when the connection changes: at boot Wi-Fi often connects after Home is shown. */
     private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
         @Override
@@ -437,6 +478,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnWifi = findViewById(R.id.btnWifi);
         shamsiDate = findViewById(R.id.shamsiDate);
         stats = findViewById(R.id.stats);
+        homePanel = findViewById(R.id.homePanel);
+        homeWeather = findViewById(R.id.homeWeather);
+        homeWeatherCurrent = findViewById(R.id.homeWeatherCurrent);
+        homeWeatherDetails = findViewById(R.id.homeWeatherDetails);
+        homeCapacityText = findViewById(R.id.homeCapacityText);
         raceCalendar = cfg.raceCalendar;
         racePanel = findViewById(R.id.racePanel);
         raceKicker = findViewById(R.id.raceKicker);
@@ -853,7 +899,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             updateInputsButton();
             pillsShown = true;
         }
-        if (showStats) startStats();
+        startHomePanel();
+        if (showStats || homePanelEnabled) startStats();
         sky.update();
         wallpaperPlayer.start();
         handler.postDelayed(minuteTick, MINUTE_MS);
@@ -1030,11 +1077,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.animate().cancel();
         heroArt.animate().cancel();
         handler.removeCallbacks(minuteTick);
+        stopHomePanel();
         stopStats();
         if (diya != null) diya.stop();
         cancelPendingFocusScroll();
         // Nothing of ours stays on screen over another app; an undecided prompt simply returns next time.
         if (cardPrompt != null) cardPrompt.dismiss();
+        if (cardChoicesDialog != null) cardChoicesDialog.dismiss();
         if (appLibrary != null) appLibrary.close();
         if (openPopup != null) openPopup.dismiss();
     }
@@ -1578,7 +1627,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void showHero(int position, float dockTopInRoot) {
         String label = adapter.labelAt(position);
         int color = adapter.ambientColorAt(position);
-        float y = dockTopInRoot - 14 * density - 26 * density - hero.getHeight();
+        float shelfBottom = dockTopInRoot - 14 * density;
+        float y = shelfBottom - 26 * density - hero.getHeight();
+        if (homePanel.getVisibility() == View.VISIBLE) {
+            Rect panelBounds = new Rect();
+            homePanel.getDrawingRect(panelBounds);
+            root.offsetDescendantRectToMyCoords(homePanel, panelBounds);
+            y = HomePanelLayout.heroTop(y, panelBounds.bottom, dockTopInRoot, hero.getHeight(), density);
+            if (Float.isNaN(y)) {
+                // The dedicated panel takes the shelf's old vertical space. Keep the dock clear and omit
+                // its title when the panel leaves no room between itself and the dock.
+                hero.animate().cancel();
+                hero.setAlpha(0f);
+                heroShown = false;
+                return;
+            }
+        }
+        final float heroY = y;
         boolean changed = !label.contentEquals(heroName.getText());
         if (cinematic && heroArtAlpha > 0f) showHeroArt(position);
 
@@ -1588,7 +1653,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             hero.animate().cancel();
             ambient.animate().cancel();
             fillHero(position, label);
-            hero.setY(y);
+            hero.setY(heroY);
             hero.setTranslationX(0f);
             hero.setAlpha(1f);
             if (ambientGlow) {
@@ -1604,7 +1669,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             hero.animate().cancel();
             ambient.animate().cancel();
             fillHero(position, label);
-            hero.setY(y);
+            hero.setY(heroY);
             hero.setTranslationX(0f);
             hero.animate().alpha(1f).setDuration(260).start();
             if (ambientGlow) {
@@ -1616,7 +1681,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (advancedEffects) hero.animate().cancel();
             hero.animate().alpha(0f).translationX(-12 * density).setDuration(120).withEndAction(() -> {
                 fillHero(position, label);
-                hero.setY(y);
+                hero.setY(heroY);
                 hero.setTranslationX(12 * density);
                 hero.animate().alpha(1f).translationX(0f).setDuration(200).start();
             }).start();
@@ -1629,7 +1694,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 }).start();
             }
         } else {
-            hero.setY(y);
+            hero.setY(heroY);
         }
     }
 
@@ -1897,16 +1962,140 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         else glass.setAlpha(0f);
     }
 
+    // ---- optional Weather Home panel ---------------------------------------------------------------
+
+    private void startHomePanel() {
+        homePanelEnabled = getSharedPreferences(WEATHER_PANEL_PREFS, MODE_PRIVATE)
+                .getBoolean(WEATHER_PANEL_KEY, false);
+        if (!homePanelEnabled) {
+            homePanel.setVisibility(View.GONE);
+            syncStatsVisibility();
+            return;
+        }
+        if (!hasWeatherPanelService()) {
+            homePanelEnabled = false;
+            homePanel.setVisibility(View.GONE);
+            syncStatsVisibility();
+            return;
+        }
+        Intent service = new Intent(WEATHER_ACTION)
+                .setComponent(new ComponentName(WEATHER_PACKAGE, WEATHER_SERVICE));
+        try {
+            homePanelBinding = bindService(service, weatherPanelConnection, Context.BIND_AUTO_CREATE);
+        } catch (SecurityException ignored) {
+            homePanelBinding = false;
+        }
+        if (!homePanelBinding) {
+            homePanelEnabled = false;
+            homePanel.setVisibility(View.GONE);
+        }
+        syncStatsVisibility();
+    }
+
+    private void stopHomePanel() {
+        handler.removeCallbacks(refreshWeatherPanel);
+        weatherEndpoint = null;
+        if (homePanelBinding) {
+            try {
+                unbindService(weatherPanelConnection);
+            } catch (IllegalArgumentException ignored) {
+                // A failed bind has no registered connection to unbind.
+            }
+            homePanelBinding = false;
+        }
+        homePanel.setVisibility(View.GONE);
+        syncStatsVisibility();
+    }
+
+    private void setHomePanelEnabled(boolean enabled) {
+        getSharedPreferences(WEATHER_PANEL_PREFS, MODE_PRIVATE).edit()
+                .putBoolean(WEATHER_PANEL_KEY, enabled).apply();
+        stopHomePanel();
+        startHomePanel();
+        if (showStats || homePanelEnabled) startStats();
+        else stopStats();
+    }
+
+    private void requestWeatherPanel() {
+        handler.removeCallbacks(refreshWeatherPanel);
+        if (weatherEndpoint == null || !homePanelEnabled) return;
+        Message request = Message.obtain(null, WEATHER_REQUEST);
+        request.replyTo = weatherPanelClient;
+        try {
+            weatherEndpoint.send(request);
+            handler.postDelayed(refreshWeatherPanel, WEATHER_PANEL_REFRESH_MS);
+        } catch (RemoteException e) {
+            weatherEndpoint = null;
+            homePanel.setVisibility(View.GONE);
+            syncStatsVisibility();
+        }
+    }
+
+    private boolean onWeatherPanelMessage(Message message) {
+        if (message.what != WEATHER_RESPONSE) return true;
+        if (!homePanelEnabled || homePanel.getVisibility() != View.VISIBLE) return true;
+        Bundle data = message.getData();
+        switch (data.getInt("status", 0)) {
+            case WEATHER_NO_CITY: // The add-on is installed, but the owner has not chosen a city yet.
+                homeWeather.setVisibility(View.VISIBLE);
+                homeWeatherCurrent.setText(R.string.home_weather_configure);
+                homeWeatherDetails.setText("");
+                break;
+            case WEATHER_OFFLINE: // Keep local capacity visible, but do not present weather as current while offline.
+                homeWeather.setVisibility(View.GONE);
+                break;
+            case WEATHER_READY:
+                showWeatherPanel(data);
+                break;
+            default:
+                homeWeather.setVisibility(View.GONE);
+                break;
+        }
+        // The first shelf layout happens before the bound Weather service responds. Reposition it after
+        // each response too, because current conditions (or hiding them while offline) change panel height.
+        homePanel.post(this::refreshHeroPositionForPanel);
+        return true;
+    }
+
+    /** Recompute the dock shelf after the asynchronous Weather panel changes its visibility or height. */
+    private void refreshHeroPositionForPanel() {
+        if (isDestroyed() || adapter == null || adapter.appCount() == 0) return;
+        int position = Math.max(0, Math.min(lastFocused, adapter.appCount() - 1));
+        RecyclerView.ViewHolder holder = grid.findViewHolderForAdapterPosition(position);
+        View card = holder == null ? null : holder.itemView.findViewById(R.id.card);
+        if (card == null || card.getWidth() <= 0 || !card.isFocused()) return;
+        // The passive panel changes the content column's height after IPC replies. Re-run the normal
+        // focus layout so both the shelf and its translucent glass stay anchored to the moved tile.
+        onTileFocused(position, card);
+    }
+
+    private void showWeatherPanel(Bundle data) {
+        int code = data.getInt("code", 3);
+        boolean day = data.getBoolean("day", true);
+        String condition = getString(HomeWeatherText.descriptionResource(code, day));
+        homeWeatherCurrent.setText(HomeWeatherText.current(getString(R.string.home_weather_current),
+                getResources().getConfiguration().getLocales().get(0), data.getString("city", ""),
+                data.getInt("temp"), condition));
+        homeWeatherDetails.setText(getString(R.string.home_weather_details, data.getInt("feels"),
+                data.getInt("humidity"), data.getInt("wind")));
+        homeWeather.setVisibility(View.VISIBLE);
+    }
+
+    private void syncStatsVisibility() {
+        if (stats != null) stats.setVisibility(showStats && homePanel.getVisibility() != View.VISIBLE
+                ? View.VISIBLE : View.GONE);
+    }
+
     // ---- optional system stats (config.xml show_stats) --------------------------------------------
 
-    /** Background reader. Started only while Home is resumed and show_stats is on. */
+    /** Background reader. Started only while Home is resumed and stats or the Weather panel is enabled. */
     private HandlerThread statsThread;
     /** The current run's handler; a run whose handler is no longer this one stops (volatile: read off-thread). */
     private volatile Handler statsBg;
 
     private void startStats() {
         if (statsThread != null) return;
-        stats.setVisibility(View.VISIBLE);
+        syncStatsVisibility();
         cpuTotalPrev = -1;
         idlePrev = -1;
         procStatDead = false;
@@ -1922,7 +2111,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 if (statsBg != bg) return;
                 String line = readStatsLine();
                 handler.post(() -> {
-                    if (showStats && stats != null && statsBg == bg) stats.setText(line);
+                    if (stats != null && statsBg == bg) {
+                        if (showStats && homePanel.getVisibility() != View.VISIBLE) stats.setText(line);
+                        if (homePanel.getVisibility() == View.VISIBLE) homeCapacityText.setText(
+                                line.isEmpty() ? getString(R.string.not_available) : line);
+                    }
                 });
                 if (statsBg == bg) bg.postDelayed(this, STATS_MS);
             }
@@ -3134,7 +3327,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         reloadTiles();
     }
 
-    /** Dropdown under the Settings pill (hold OK): every discovered card, its package and key; OK toggles Shown and Hidden. */
+    /** Module-card list under Settings: each row opens independent visibility choices where supported. */
     private void showModuleCards() {
         if (cards.isEmpty() || !CardFeature.working()) {
             Toast.makeText(this, R.string.no_module_cards, Toast.LENGTH_SHORT).show();
@@ -3164,12 +3357,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             ((TextView) row.findViewById(R.id.digest)).setText(Cards.longDigest(card.digest));
             final String pkg = card.pkg;
             row.setOnClickListener(v -> CardFeature.run(() -> {
-                // The list stays open; the decision is for the card as it is now, not as it was listed.
                 Cards.Card now = cardFor(pkg);
-                if (now == null) return null;
-                decideCard(now, now.state != Cards.State.SHOWN);
-                // Every row, not only this one: a toggle can move another card across the limit of 8.
-                updateCardStates(rows);
+                if (now != null) showCardChoices(now, rows);
                 return null;
             }, null));
             rows.addView(row);
@@ -3187,6 +3376,47 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         rows.getChildAt(0).requestFocus();
     }
 
+    private void showCardChoices(Cards.Card card, LinearLayout rows) {
+        boolean panelChoice = supportsHomePanel(card);
+        String[] choices = panelChoice
+                ? new String[]{getString(R.string.card_show), getString(R.string.home_panel)}
+                : new String[]{getString(R.string.card_show)};
+        boolean[] checked = panelChoice
+                ? new boolean[]{card.state == Cards.State.SHOWN,
+                    getSharedPreferences(WEATHER_PANEL_PREFS, MODE_PRIVATE).getBoolean(WEATHER_PANEL_KEY, false)}
+                : new boolean[]{card.state == Cards.State.SHOWN};
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(card.label)
+                .setMultiChoiceItems(choices, checked, (d, which, value) -> checked[which] = value)
+                .setPositiveButton(R.string.done, null)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        cardChoicesDialog = dialog;
+        dialog.setOnDismissListener(d -> {
+            if (cardChoicesDialog == dialog) cardChoicesDialog = null;
+        });
+        dialog.setOnShowListener(d -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            Cards.Card current = cardFor(card.pkg);
+            if (current != null) decideCard(current, checked[0]);
+            if (panelChoice) setHomePanelEnabled(checked[1]);
+            updateCardStates(rows);
+            dialog.dismiss();
+        }));
+        dialog.show();
+    }
+
+    private boolean supportsHomePanel(Cards.Card card) {
+        return WEATHER_PACKAGE.equals(card.pkg) && hasWeatherPanelService();
+    }
+
+    private boolean hasWeatherPanelService() {
+        if (getPackageManager().checkSignatures(WEATHER_PACKAGE, getPackageName())
+                != PackageManager.SIGNATURE_MATCH) return false;
+        Intent service = new Intent(WEATHER_ACTION)
+                .setComponent(new ComponentName(WEATHER_PACKAGE, WEATHER_SERVICE));
+        return getPackageManager().resolveService(service, 0) != null;
+    }
+
     private Cards.Card cardFor(String pkg) {
         for (Cards.Card c : cards) if (c.pkg.equals(pkg)) return c;
         return null;
@@ -3198,7 +3428,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         for (int i = 0; i < rows.getChildCount(); i++) {
             View row = rows.getChildAt(i);
             Cards.Card card = row.getTag() instanceof String ? cardFor((String) row.getTag()) : null;
-            ((TextView) row.findViewById(R.id.state)).setText(card != null ? stateText(card, drawn.contains(card)) : "");
+            if (card != null) {
+                String state = stateText(card, drawn.contains(card));
+                if (supportsHomePanel(card)) {
+                    boolean enabled = getSharedPreferences(WEATHER_PANEL_PREFS, MODE_PRIVATE)
+                            .getBoolean(WEATHER_PANEL_KEY, false);
+                    state += " · " + getString(enabled ? R.string.home_panel_on : R.string.home_panel_off);
+                }
+                ((TextView) row.findViewById(R.id.state)).setText(state);
+            } else {
+                ((TextView) row.findViewById(R.id.state)).setText("");
+            }
         }
     }
 

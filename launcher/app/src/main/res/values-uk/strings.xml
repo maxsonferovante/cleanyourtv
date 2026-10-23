@@ -144,4 +144,20 @@
     <!-- Cinematic top shelf (cinematic_home): the line under the focused dock app's name; %1$s is when it was
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Востаннє відкрито %1$s</string>
+    <string name="done">Готово</string>
+    <string name="home_panel">Панель головного екрана</string>
+    <string name="home_panel_on">Панель увімкнено</string>
+    <string name="home_panel_off">Панель вимкнено</string>
+    <string name="home_weather_heading">Погода</string>
+    <string name="home_capacity_heading">Ресурси</string>
+    <string name="home_weather_configure">Відкрийте Weather і виберіть місто</string>
+    <string name="home_weather_details">Відчувається як %1$d° · Вологість %2$d%% · Вітер %3$d км/год</string>
+    <string name="home_sky_clear_day">Ясно</string>
+    <string name="home_sky_clear_night">Ясно</string>
+    <string name="home_sky_partly_cloudy">Мінлива хмарність</string>
+    <string name="home_sky_cloudy">Хмарно</string>
+    <string name="home_sky_fog">Туман</string>
+    <string name="home_sky_rain">Дощ</string>
+    <string name="home_sky_snow">Сніг</string>
+    <string name="home_sky_storm">Гроза</string>
 </resources>

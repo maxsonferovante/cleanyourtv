@@ -93,4 +93,20 @@
         <item quantity="other">%1$dটি অ্যাপ</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="home_panel">হোম প্যানেল</string>
+    <string name="home_panel_on">প্যানেল চালু</string>
+    <string name="home_panel_off">প্যানেল বন্ধ</string>
+    <string name="home_weather_heading">আবহাওয়া</string>
+    <string name="home_capacity_heading">ধারণক্ষমতা</string>
+    <string name="home_weather_configure">শহর বেছে নিতে Weather খুলুন</string>
+    <string name="home_weather_details">অনুভূত %1$d° · আর্দ্রতা %2$d%% · বাতাস %3$d কিমি/ঘণ্টা</string>
+    <string name="home_sky_clear_day">পরিষ্কার</string>
+    <string name="home_sky_clear_night">পরিষ্কার</string>
+    <string name="home_sky_partly_cloudy">আংশিক মেঘলা</string>
+    <string name="home_sky_cloudy">মেঘলা</string>
+    <string name="home_sky_fog">কুয়াশা</string>
+    <string name="home_sky_rain">বৃষ্টি</string>
+    <string name="home_sky_snow">তুষার</string>
+    <string name="home_sky_storm">বজ্রঝড়</string>
 </resources>

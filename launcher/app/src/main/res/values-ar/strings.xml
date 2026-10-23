@@ -92,4 +92,20 @@
         <item quantity="other">%1$d تطبيق</item>
     </plurals>
     <string name="greeting_with_name">%1$s، %2$s</string>
+    <string name="done">تم</string>
+    <string name="home_panel">لوحة الشاشة الرئيسية</string>
+    <string name="home_panel_on">اللوحة مفعلة</string>
+    <string name="home_panel_off">اللوحة معطلة</string>
+    <string name="home_weather_heading">الطقس</string>
+    <string name="home_capacity_heading">سعة النظام</string>
+    <string name="home_weather_configure">افتح Weather لاختيار مدينة</string>
+    <string name="home_weather_details">الإحساس %1$d° · الرطوبة %2$d%% · الرياح %3$d كم/س</string>
+    <string name="home_sky_clear_day">صحو</string>
+    <string name="home_sky_clear_night">صحو</string>
+    <string name="home_sky_partly_cloudy">غائم جزئيا</string>
+    <string name="home_sky_cloudy">غائم</string>
+    <string name="home_sky_fog">ضباب</string>
+    <string name="home_sky_rain">مطر</string>
+    <string name="home_sky_snow">ثلج</string>
+    <string name="home_sky_storm">عاصفة رعدية</string>
 </resources>

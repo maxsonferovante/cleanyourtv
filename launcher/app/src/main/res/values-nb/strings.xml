@@ -105,4 +105,20 @@
     <string name="race_live">%1$s · direkte</string>
     <string name="race_finished">Målgang</string>
     <string name="last_opened">Sist åpnet %1$s</string>
+    <string name="done">Ferdig</string>
+    <string name="home_panel">Hjemmepanel</string>
+    <string name="home_panel_on">Panel på</string>
+    <string name="home_panel_off">Panel av</string>
+    <string name="home_weather_heading">Vær</string>
+    <string name="home_capacity_heading">Kapasitet</string>
+    <string name="home_weather_configure">Åpne Weather og velg en by</string>
+    <string name="home_weather_details">Føles som %1$d° · Fuktighet %2$d%% · Vind %3$d km/t</string>
+    <string name="home_sky_clear_day">Klart</string>
+    <string name="home_sky_clear_night">Klart</string>
+    <string name="home_sky_partly_cloudy">Delvis skyet</string>
+    <string name="home_sky_cloudy">Skyet</string>
+    <string name="home_sky_fog">Tåke</string>
+    <string name="home_sky_rain">Regn</string>
+    <string name="home_sky_snow">Snø</string>
+    <string name="home_sky_storm">Tordenvær</string>
 </resources>

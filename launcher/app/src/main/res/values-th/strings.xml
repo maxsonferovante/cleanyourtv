@@ -62,4 +62,20 @@
         <item quantity="other">%1$d แอป</item>
     </plurals>
     <string name="greeting_with_name">%1$s %2$s</string>
+    <string name="done">เสร็จสิ้น</string>
+    <string name="home_panel">แผงหน้าจอหลัก</string>
+    <string name="home_panel_on">เปิดแผงแล้ว</string>
+    <string name="home_panel_off">ปิดแผงแล้ว</string>
+    <string name="home_weather_heading">สภาพอากาศ</string>
+    <string name="home_capacity_heading">ความจุ</string>
+    <string name="home_weather_configure">เปิด Weather แล้วเลือกเมือง</string>
+    <string name="home_weather_details">รู้สึกเหมือน %1$d° · ความชื้น %2$d%% · ลม %3$d กม./ชม.</string>
+    <string name="home_sky_clear_day">ท้องฟ้าแจ่มใส</string>
+    <string name="home_sky_clear_night">ท้องฟ้าแจ่มใส</string>
+    <string name="home_sky_partly_cloudy">มีเมฆบางส่วน</string>
+    <string name="home_sky_cloudy">มีเมฆมาก</string>
+    <string name="home_sky_fog">หมอก</string>
+    <string name="home_sky_rain">ฝน</string>
+    <string name="home_sky_snow">หิมะ</string>
+    <string name="home_sky_storm">พายุฝนฟ้าคะนอง</string>
 </resources>

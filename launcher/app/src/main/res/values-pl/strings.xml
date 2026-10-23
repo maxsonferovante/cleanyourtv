@@ -90,4 +90,20 @@
         <item quantity="other">%1$d aplikacji</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">Gotowe</string>
+    <string name="home_panel">Panel ekranu głównego</string>
+    <string name="home_panel_on">Panel włączony</string>
+    <string name="home_panel_off">Panel wyłączony</string>
+    <string name="home_weather_heading">Pogoda</string>
+    <string name="home_capacity_heading">Pojemność</string>
+    <string name="home_weather_configure">Otwórz Weather i wybierz miasto</string>
+    <string name="home_weather_details">Odczuwalna %1$d° · Wilgotność %2$d%% · Wiatr %3$d km/h</string>
+    <string name="home_sky_clear_day">Bezchmurnie</string>
+    <string name="home_sky_clear_night">Bezchmurnie</string>
+    <string name="home_sky_partly_cloudy">Częściowe zachmurzenie</string>
+    <string name="home_sky_cloudy">Pochmurno</string>
+    <string name="home_sky_fog">Mgła</string>
+    <string name="home_sky_rain">Deszcz</string>
+    <string name="home_sky_snow">Śnieg</string>
+    <string name="home_sky_storm">Burza</string>
 </resources>

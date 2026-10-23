@@ -3,8 +3,13 @@
 
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-permission android:name="com.gathin.tvhome.permission.ACCESS_WEATHER_PANEL" />
 
-    <!-- The only permission: Open-Meteo, for the place search, the weather and the air quality. -->
+    <queries>
+        <package android:name="com.gathin.tvhome" />
+    </queries>
+
+    <!-- Network permission: Open-Meteo, for the place search, the weather and the air quality. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,5 +35,15 @@
             </intent-filter>
             <meta-data android:name="com.gathin.tvhome.card" android:resource="@xml/module_card" />
         </activity>
+
+        <!-- Bound-only CleanYourTV Home panel endpoint. Requests are checked against the caller's Android UID. -->
+        <service
+            android:name=".HomePanelService"
+            android:exported="true"
+            android:permission="com.gathin.tvhome.permission.ACCESS_WEATHER_PANEL">
+            <intent-filter>
+                <action android:name="io.github.sumyabazar1.weather.HOME_PANEL" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

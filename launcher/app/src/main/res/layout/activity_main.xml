@@ -346,6 +346,94 @@
             </LinearLayout>
         </RelativeLayout>
 
+        <!-- Optional live panel supplied by the Weather add-on. It is passive: focus stays in the app grid. -->
+        <LinearLayout
+            android:id="@+id/homePanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/homeWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_weather_heading"
+                    android:textColor="#8CFFFFFF"
+                    android:textSize="10sp"
+                    android:fontFamily="@string/font_medium"
+                    android:letterSpacing="0.18"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/homeWeatherCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="17sp"
+                    android:fontFamily="@string/font_regular"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/homeWeatherDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp"
+                    android:fontFamily="@string/font_body"
+                    android:maxLines="3"
+                    android:ellipsize="end" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/homeCapacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_capacity_heading"
+                    android:textColor="#8CFFFFFF"
+                    android:textSize="10sp"
+                    android:fontFamily="@string/font_medium"
+                    android:letterSpacing="0.18"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/homeCapacityText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#D9FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="@string/font_medium"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+            </LinearLayout>
+        </LinearLayout>
+
         <!-- The wrapper clips at the grid's edge; the grid itself must not clip so scaled tiles can overflow their cells. -->
         <FrameLayout
             android:layout_width="match_parent"
