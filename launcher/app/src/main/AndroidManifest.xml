@@ -22,6 +22,12 @@
          this permission (protection level normal, so it is granted at install). Ignored on other TVs. -->
     <uses-permission android:name="yandex.tv.permission.ACCESS_TV_SOURCE" />
 
+    <!-- The optional Weather add-on uses this signature permission for its bound Home-panel endpoint. -->
+    <permission
+        android:name="com.gathin.tvhome.permission.ACCESS_WEATHER_PANEL"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.gathin.tvhome.permission.ACCESS_WEATHER_PANEL" />
+
     <!-- Android 11+ package visibility: lets the launcher list the TV apps it shows as tiles, and the
          apps that declare a module card (docs/specs/card.md). -->
     <queries>
@@ -60,6 +66,8 @@
         <package android:name="com.xiaomi.mitv.settings" />
         <package android:name="com.tcl.settings" />
         <package android:name="com.amazon.tv.launcher" />
+        <!-- The opt-in Weather Home panel binds to this add-on only while Home is resumed. -->
+        <package android:name="io.github.sumyabazar1.weather" />
         <!-- Coocaa OS sources for the Inputs menu (coocaa_sources); see CoocaaSources. -->
         <provider android:authorities="com.skyworth.tv.provider" />
         <provider android:authorities="com.skyworth.tv.sdk.provider" />

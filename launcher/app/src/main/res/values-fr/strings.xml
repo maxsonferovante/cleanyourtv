@@ -88,4 +88,20 @@
         <item quantity="other">%1$d applications</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">Terminé</string>
+    <string name="home_panel">Panneau d\'accueil</string>
+    <string name="home_panel_on">Panneau activé</string>
+    <string name="home_panel_off">Panneau désactivé</string>
+    <string name="home_weather_heading">Météo</string>
+    <string name="home_capacity_heading">Capacité</string>
+    <string name="home_weather_configure">Ouvrez Weather et choisissez une ville</string>
+    <string name="home_weather_details">Ressenti %1$d° · Humidité %2$d%% · Vent %3$d km/h</string>
+    <string name="home_sky_clear_day">Dégagé</string>
+    <string name="home_sky_clear_night">Dégagé</string>
+    <string name="home_sky_partly_cloudy">Partiellement nuageux</string>
+    <string name="home_sky_cloudy">Nuageux</string>
+    <string name="home_sky_fog">Brouillard</string>
+    <string name="home_sky_rain">Pluie</string>
+    <string name="home_sky_snow">Neige</string>
+    <string name="home_sky_storm">Orage</string>
 </resources>

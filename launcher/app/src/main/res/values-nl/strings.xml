@@ -106,4 +106,20 @@
     <string name="race_live">%1$s · live</string>
     <string name="race_finished">Geblokte vlag</string>
     <string name="last_opened">Laatst geopend %1$s</string>
+    <string name="done">Gereed</string>
+    <string name="home_panel">Startschermpaneel</string>
+    <string name="home_panel_on">Paneel aan</string>
+    <string name="home_panel_off">Paneel uit</string>
+    <string name="home_weather_heading">Weer</string>
+    <string name="home_capacity_heading">Capaciteit</string>
+    <string name="home_weather_configure">Open Weather en kies een plaats</string>
+    <string name="home_weather_details">Gevoelstemperatuur %1$d° · Vochtigheid %2$d%% · Wind %3$d km/u</string>
+    <string name="home_sky_clear_day">Helder</string>
+    <string name="home_sky_clear_night">Helder</string>
+    <string name="home_sky_partly_cloudy">Half bewolkt</string>
+    <string name="home_sky_cloudy">Bewolkt</string>
+    <string name="home_sky_fog">Mist</string>
+    <string name="home_sky_rain">Regen</string>
+    <string name="home_sky_snow">Sneeuw</string>
+    <string name="home_sky_storm">Onweer</string>
 </resources>

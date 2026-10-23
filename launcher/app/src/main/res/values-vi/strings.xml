@@ -116,4 +116,20 @@
     <string name="race_countdown_days">%1$d ngày %2$d giờ</string>
     <string name="last_opened">Mở lần cuối %1$s</string>
     <string name="tile_move">Di chuyển</string>
+    <string name="done">Xong</string>
+    <string name="home_panel">Bảng điều khiển màn hình chính</string>
+    <string name="home_panel_on">Đã bật bảng</string>
+    <string name="home_panel_off">Đã tắt bảng</string>
+    <string name="home_weather_heading">Thời tiết</string>
+    <string name="home_capacity_heading">Dung lượng</string>
+    <string name="home_weather_configure">Mở Weather để chọn thành phố</string>
+    <string name="home_weather_details">Cảm giác %1$d° · Độ ẩm %2$d%% · Gió %3$d km/h</string>
+    <string name="home_sky_clear_day">Trời quang</string>
+    <string name="home_sky_clear_night">Trời quang</string>
+    <string name="home_sky_partly_cloudy">Có mây vài nơi</string>
+    <string name="home_sky_cloudy">Nhiều mây</string>
+    <string name="home_sky_fog">Sương mù</string>
+    <string name="home_sky_rain">Mưa</string>
+    <string name="home_sky_snow">Tuyết</string>
+    <string name="home_sky_storm">Dông</string>
 </resources>

@@ -119,6 +119,12 @@ final class Forecast {
      * service: if it fails, aqi is -1.
      */
     static Report fetch(double latitude, double longitude, int days) throws IOException, JSONException {
+        return fetch(latitude, longitude, days, true);
+    }
+
+    /** The Home panel does not show air quality, so it does not make the separate air-quality request. */
+    static Report fetch(double latitude, double longitude, int days, boolean includeAqi)
+            throws IOException, JSONException {
         String where = String.format(Locale.ROOT, "latitude=%.4f&longitude=%.4f", latitude, longitude);
         // DWD's ICON model: Open-Meteo's default blend called light snow over Ulaanbaatar "overcast" while ICON,
         // and Google, had snow falling.
@@ -132,7 +138,7 @@ final class Forecast {
         int code = snowIfCold(current.getInt("weather_code"), temp, humidity);
         return new Report((int) Math.round(temp), (int) Math.round(current.getDouble("apparent_temperature")),
                 code, current.getInt("is_day") == 1,
-                days(reply.getJSONObject("daily")), aqiOrUnknown(where),
+                days(reply.getJSONObject("daily")), includeAqi ? aqiOrUnknown(where) : -1,
                 (int) Math.round(humidity), (int) Math.round(current.optDouble("wind_speed_10m", 0)));
     }
 

@@ -103,4 +103,20 @@
     <string name="race_live">%1$s · en directe</string>
     <string name="race_finished">Bandera de quadres</string>
     <string name="last_opened">Obert per últim cop: %1$s</string>
+    <string name="done">Fet</string>
+    <string name="home_panel">Tauler d\'inici</string>
+    <string name="home_panel_on">Tauler activat</string>
+    <string name="home_panel_off">Tauler desactivat</string>
+    <string name="home_weather_heading">Temps</string>
+    <string name="home_capacity_heading">Capacitat</string>
+    <string name="home_weather_configure">Obre Weather i tria una ciutat</string>
+    <string name="home_weather_details">Sensació %1$d° · Humitat %2$d%% · Vent %3$d km/h</string>
+    <string name="home_sky_clear_day">Serè</string>
+    <string name="home_sky_clear_night">Serè</string>
+    <string name="home_sky_partly_cloudy">Parcialment ennuvolat</string>
+    <string name="home_sky_cloudy">Ennuvolat</string>
+    <string name="home_sky_fog">Boira</string>
+    <string name="home_sky_rain">Pluja</string>
+    <string name="home_sky_snow">Neu</string>
+    <string name="home_sky_storm">Tempesta</string>
 </resources>

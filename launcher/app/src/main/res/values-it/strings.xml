@@ -99,4 +99,20 @@
     <string name="race_live">%1$s · in diretta</string>
     <string name="race_finished">Bandiera a scacchi</string>
     <string name="last_opened">Ultima apertura: %1$s</string>
+    <string name="done">Fatto</string>
+    <string name="home_panel">Pannello Home</string>
+    <string name="home_panel_on">Pannello attivo</string>
+    <string name="home_panel_off">Pannello disattivato</string>
+    <string name="home_weather_heading">Meteo</string>
+    <string name="home_capacity_heading">Capacità</string>
+    <string name="home_weather_configure">Apri Weather e scegli una città</string>
+    <string name="home_weather_details">Percepita %1$d° · Umidità %2$d%% · Vento %3$d km/h</string>
+    <string name="home_sky_clear_day">Sereno</string>
+    <string name="home_sky_clear_night">Sereno</string>
+    <string name="home_sky_partly_cloudy">Parzialmente nuvoloso</string>
+    <string name="home_sky_cloudy">Nuvoloso</string>
+    <string name="home_sky_fog">Nebbia</string>
+    <string name="home_sky_rain">Pioggia</string>
+    <string name="home_sky_snow">Neve</string>
+    <string name="home_sky_storm">Temporale</string>
 </resources>

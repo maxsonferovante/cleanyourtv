@@ -105,4 +105,20 @@
     <string name="race_live">%1$s · jonli</string>
     <string name="race_finished">Marra</string>
     <string name="last_opened">Oxirgi marta ochilgan: %1$s</string>
+    <string name="done">Tayyor</string>
+    <string name="home_panel">Bosh ekran paneli</string>
+    <string name="home_panel_on">Panel yoqilgan</string>
+    <string name="home_panel_off">Panel o‘chirilgan</string>
+    <string name="home_weather_heading">Ob-havo</string>
+    <string name="home_capacity_heading">Sig‘im</string>
+    <string name="home_weather_configure">Shahar tanlash uchun Weather ilovasini oching</string>
+    <string name="home_weather_details">His qilinishi %1$d° · Namlik %2$d%% · Shamol %3$d km/soat</string>
+    <string name="home_sky_clear_day">Ochiq</string>
+    <string name="home_sky_clear_night">Ochiq</string>
+    <string name="home_sky_partly_cloudy">Qisman bulutli</string>
+    <string name="home_sky_cloudy">Bulutli</string>
+    <string name="home_sky_fog">Tuman</string>
+    <string name="home_sky_rain">Yomg‘ir</string>
+    <string name="home_sky_snow">Qor</string>
+    <string name="home_sky_storm">Momaqaldiroq</string>
 </resources>

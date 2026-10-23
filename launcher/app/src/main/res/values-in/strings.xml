@@ -104,4 +104,20 @@
     <string name="race_live">%1$s · langsung</string>
     <string name="race_finished">Bendera finis</string>
     <string name="last_opened">Terakhir dibuka %1$s</string>
+    <string name="done">Selesai</string>
+    <string name="home_panel">Panel layar utama</string>
+    <string name="home_panel_on">Panel aktif</string>
+    <string name="home_panel_off">Panel nonaktif</string>
+    <string name="home_weather_heading">Cuaca</string>
+    <string name="home_capacity_heading">Kapasitas</string>
+    <string name="home_weather_configure">Buka Weather untuk memilih kota</string>
+    <string name="home_weather_details">Terasa %1$d° · Kelembapan %2$d%% · Angin %3$d km/j</string>
+    <string name="home_sky_clear_day">Cerah</string>
+    <string name="home_sky_clear_night">Cerah</string>
+    <string name="home_sky_partly_cloudy">Berawan sebagian</string>
+    <string name="home_sky_cloudy">Berawan</string>
+    <string name="home_sky_fog">Kabut</string>
+    <string name="home_sky_rain">Hujan</string>
+    <string name="home_sky_snow">Salju</string>
+    <string name="home_sky_storm">Badai petir</string>
 </resources>

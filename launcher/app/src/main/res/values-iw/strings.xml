@@ -108,4 +108,20 @@
     <string name="race_live">%1$s · בשידור חי</string>
     <string name="race_finished">הדגל המשובץ</string>
     <string name="last_opened">נפתח לאחרונה %1$s</string>
+    <string name="done">סיום</string>
+    <string name="home_panel">לוח מסך הבית</string>
+    <string name="home_panel_on">הלוח מופעל</string>
+    <string name="home_panel_off">הלוח מושבת</string>
+    <string name="home_weather_heading">מזג אוויר</string>
+    <string name="home_capacity_heading">קיבולת</string>
+    <string name="home_weather_configure">פתחו את Weather ובחרו עיר</string>
+    <string name="home_weather_details">מרגיש כמו %1$d° · לחות %2$d%% · רוח %3$d קמ״ש</string>
+    <string name="home_sky_clear_day">בהיר</string>
+    <string name="home_sky_clear_night">בהיר</string>
+    <string name="home_sky_partly_cloudy">מעונן חלקית</string>
+    <string name="home_sky_cloudy">מעונן</string>
+    <string name="home_sky_fog">ערפל</string>
+    <string name="home_sky_rain">גשם</string>
+    <string name="home_sky_snow">שלג</string>
+    <string name="home_sky_storm">סופת רעמים</string>
 </resources>

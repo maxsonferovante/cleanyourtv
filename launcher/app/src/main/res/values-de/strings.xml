@@ -65,4 +65,20 @@
         <item quantity="other">%1$d Apps</item>
     </plurals>
     <string name="greeting_with_name">%1$s, %2$s</string>
+    <string name="done">Fertig</string>
+    <string name="home_panel">Startbildschirm-Panel</string>
+    <string name="home_panel_on">Panel ein</string>
+    <string name="home_panel_off">Panel aus</string>
+    <string name="home_weather_heading">Wetter</string>
+    <string name="home_capacity_heading">Kapazität</string>
+    <string name="home_weather_configure">Weather öffnen und eine Stadt auswählen</string>
+    <string name="home_weather_details">Gefühlt %1$d° · Luftfeuchte %2$d%% · Wind %3$d km/h</string>
+    <string name="home_sky_clear_day">Klar</string>
+    <string name="home_sky_clear_night">Klar</string>
+    <string name="home_sky_partly_cloudy">Teilweise bewölkt</string>
+    <string name="home_sky_cloudy">Bewölkt</string>
+    <string name="home_sky_fog">Nebel</string>
+    <string name="home_sky_rain">Regen</string>
+    <string name="home_sky_snow">Schnee</string>
+    <string name="home_sky_storm">Gewitter</string>
 </resources>

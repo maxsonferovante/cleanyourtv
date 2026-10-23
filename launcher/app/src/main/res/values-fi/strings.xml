@@ -93,4 +93,20 @@
     <string name="tile_add_to_dock">Lisää telakkaan</string>
     <string name="tile_replace_in_dock">Korvaa toisella sovelluksella</string>
     <string name="dock_edit_pick_place">Valitse telakan paikka tälle sovellukselle ja paina OK. Takaisin peruuttaa.</string>
+    <string name="done">Valmis</string>
+    <string name="home_panel">Aloitusnäytön paneeli</string>
+    <string name="home_panel_on">Paneeli käytössä</string>
+    <string name="home_panel_off">Paneeli pois käytöstä</string>
+    <string name="home_weather_heading">Sää</string>
+    <string name="home_capacity_heading">Kapasiteetti</string>
+    <string name="home_weather_configure">Avaa Weather ja valitse kaupunki</string>
+    <string name="home_weather_details">Tuntuu %1$d° · Kosteus %2$d%% · Tuuli %3$d km/h</string>
+    <string name="home_sky_clear_day">Selkeää</string>
+    <string name="home_sky_clear_night">Selkeää</string>
+    <string name="home_sky_partly_cloudy">Puolipilvistä</string>
+    <string name="home_sky_cloudy">Pilvistä</string>
+    <string name="home_sky_fog">Sumua</string>
+    <string name="home_sky_rain">Sadetta</string>
+    <string name="home_sky_snow">Lunta</string>
+    <string name="home_sky_storm">Ukkosta</string>
 </resources>
