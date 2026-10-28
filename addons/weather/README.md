@@ -23,6 +23,7 @@ sky-blue glow; on any other Android TV home it is an ordinary app.
   signing key; their default local release builds share Gradle's debug key. The service makes no air-quality
   request for the panel and stops when Home unbinds. It is never started at boot and does no work in the background.
 - The Home panel uses Celsius and follows CleanYourTV's language.
+- The Weather page uses English or French words, following CleanYourTV's language; day names follow the TV's language.
 
 ## Options
 
