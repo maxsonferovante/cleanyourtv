@@ -86,4 +86,5 @@
     <string name="home_sky_rain">Regen</string>
     <string name="home_sky_snow">Schnee</string>
     <string name="home_sky_storm">Gewitter</string>
+    <string name="game_live">Jetzt live</string>
 </resources>

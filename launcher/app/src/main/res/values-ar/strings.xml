@@ -113,4 +113,5 @@
     <string name="home_sky_rain">مطر</string>
     <string name="home_sky_snow">ثلج</string>
     <string name="home_sky_storm">عاصفة رعدية</string>
+    <string name="game_live">مباشر الآن</string>
 </resources>

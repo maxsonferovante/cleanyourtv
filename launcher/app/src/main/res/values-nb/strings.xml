@@ -126,4 +126,5 @@
     <string name="home_sky_rain">Regn</string>
     <string name="home_sky_snow">Snø</string>
     <string name="home_sky_storm">Tordenvær</string>
+    <string name="game_live">Direkte nå</string>
 </resources>

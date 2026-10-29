@@ -18,6 +18,7 @@
     <string name="good_night">לילה טוב</string>
     <string name="festival_dussehra_greeting">חג דוסרה שמח</string>
     <string name="festival_diwali_greeting">חג דיוואלי שמח</string>
+    <string name="festival_halloween_greeting">ליל כל הקדושים שמח</string>
     <string name="ethernet">רשת קווית</string>
     <string name="offline">אין חיבור לרשת</string>
     <string name="not_available">לא זמין בטלוויזיה זו</string>
@@ -107,8 +108,8 @@
     <string name="library_app_info">פרטי האפליקציה</string>
     <string name="library_save_failed">לא ניתן לשמור את קיצור הדרך</string>
     <string name="library_recent">חדשה · הוספה למסך הבית</string>
-    <string name="library_hint_add">לחיצה להוספה למסך הבית · לחיצה ארוכה לאפשרויות</string>
-    <string name="library_hint_open">לחיצה לפתיחה · לחיצה ארוכה לאפשרויות</string>
+    <string name="library_hint_add">לחיצה להוספה למסך הבית · לחיצה ממושכת לאפשרויות</string>
+    <string name="library_hint_open">לחיצה לפתיחה · לחיצה ממושכת לאפשרויות</string>
     <plurals name="library_app_count">
         <item quantity="one">אפליקציה אחת</item>
         <item quantity="two">שתי אפליקציות</item>
@@ -165,4 +166,5 @@
     <string name="home_sky_rain">גשם</string>
     <string name="home_sky_snow">שלג</string>
     <string name="home_sky_storm">סופת רעמים</string>
+    <string name="game_live">בשידור חי עכשיו</string>
 </resources>

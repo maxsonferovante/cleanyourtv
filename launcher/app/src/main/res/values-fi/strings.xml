@@ -129,4 +129,5 @@
     <string name="home_sky_rain">Sadetta</string>
     <string name="home_sky_snow">Lunta</string>
     <string name="home_sky_storm">Ukkosta</string>
+    <string name="game_live">Käynnissä nyt</string>
 </resources>

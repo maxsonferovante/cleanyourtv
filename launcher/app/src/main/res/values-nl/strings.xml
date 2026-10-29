@@ -127,4 +127,5 @@
     <string name="home_sky_rain">Regen</string>
     <string name="home_sky_snow">Sneeuw</string>
     <string name="home_sky_storm">Onweer</string>
+    <string name="game_live">Nu live</string>
 </resources>

@@ -109,4 +109,5 @@
     <string name="home_sky_rain">Yağmur</string>
     <string name="home_sky_snow">Kar</string>
     <string name="home_sky_storm">Gök gürültülü fırtına</string>
+    <string name="game_live">Şimdi canlı</string>
 </resources>

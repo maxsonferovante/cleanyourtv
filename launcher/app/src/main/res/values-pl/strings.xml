@@ -111,4 +111,5 @@
     <string name="home_sky_rain">Deszcz</string>
     <string name="home_sky_snow">Śnieg</string>
     <string name="home_sky_storm">Burza</string>
+    <string name="game_live">Na żywo</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="home_sky_rain">Pluie</string>
     <string name="home_sky_snow">Neige</string>
     <string name="home_sky_storm">Orage</string>
+    <string name="game_live">En direct</string>
 </resources>

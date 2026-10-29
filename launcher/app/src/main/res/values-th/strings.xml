@@ -83,4 +83,5 @@
     <string name="home_sky_rain">ฝน</string>
     <string name="home_sky_snow">หิมะ</string>
     <string name="home_sky_storm">พายุฝนฟ้าคะนอง</string>
+    <string name="game_live">กำลังถ่ายทอดสด</string>
 </resources>

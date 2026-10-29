@@ -126,4 +126,5 @@
     <string name="home_sky_rain">Déšť</string>
     <string name="home_sky_snow">Sníh</string>
     <string name="home_sky_storm">Bouřka</string>
+    <string name="game_live">Právě živě</string>
 </resources>
